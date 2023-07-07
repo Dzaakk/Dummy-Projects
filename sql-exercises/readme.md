@@ -1,0 +1,1 @@
+# Train my SQL skill to improve myself 
