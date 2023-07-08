@@ -105,3 +105,124 @@ SELECT * FROM customer;
 #10 From the following table, write a SQL query to find customers whose grade is 200. Return customer_id, cust_name, city, grade, salesman_id. 
 SELECT * FROM customer
 WHERE grade=200;
+
+#11 From the following table, write a SQL query to find orders that are delivered by a salesperson with ID. 5001. Return ord_no, ord_date, purch_amt. 
+SELECT ord_no, ord_date, purch_amt FROM orders 
+WHERE salesman_id=5001;
+#--------------------------------------------
+# ADD NEW TABLE
+CREATE TABLE nobel_win(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    year int,
+    subject VARCHAR(100),
+    winner VARCHAR(100),
+    country VARCHAR(100),
+    category VARCHAR(100)
+);
+
+INSERT INTO nobel_win(year, subject, winner, country, category) 
+VALUES  (1970, 'Physics','Hannes','Sweden','Scientist'),
+        (1970, 'Physics','Louis','France','Scientist'),
+        (1970, 'Chemistry','Luis','France','Scientist'),
+        (1970, 'Physiology','Euler','Sweden','Scientist'),
+        (1970, 'Physiology','Bernard','Germany','Scientist'),
+        (1970, 'Literature','Aleksandr','Russia','Linguist'),
+        (1970, 'Economics','Paul','USA','Economist'),
+        (1970, 'Physiology','Julius','USA','Scientist'),
+        (1971, 'Physics','Dennis','Hungary','Scientist'),
+        (1971, 'Chemistry','Gerhard','Germany','Chancellor'),
+        (1971, 'Peace','Willy','Germany','Linguist'),
+        (1971, 'Literature','Pablo','Chile','Linguist'),
+        (1971, 'Economics','Simon','Russia','Economist');
+#------------------------------------------------
+
+#12 From the following table, write a SQL query to find the Nobel Prize winner(s) for the year 1970. Return year, subject and winner. 
+SELECT year, subject, winner 
+    FROM nobel_win
+WHERE year=1970;
+
+#13 From the following table, write a SQL query to find the Nobel Prize winner in ‘Literature’ for 1971. Return winner. 
+SELECT winner 
+    FROM nobel_win
+WHERE year=1971
+    AND subject = 'Literature';
+
+#14 From the following table, write a SQL query to locate the Nobel Prize winner 'Dennis Gabor'. Return year, subject.
+SELECT year, subject 
+    FROM nobel_win
+WHERE winner='Dennis';
+
+#15 From the following table, write a SQL query to find the Nobel Prize winners in the field of ‘Physics’ since 1950. Return winner. 
+SELECT winner
+    FROM nobel_win
+WHERE year>=1950
+    AND subject='Physics';
+
+#16 From the following table, write a SQL query to find the Nobel Prize winners in ‘Chemistry’ between the years 1965 and 1975. Begin and end values are included. Return year, subject, winner, and country.  
+SELECT year, subject, winner, country 
+    FROM nobel_win
+WHERE subject='Chemistry'
+    AND year>1965 AND YEAR <1975;
+
+#17  Write a SQL query to display all details of the Prime Ministerial winners after 1972 of Menachem Begin and Yitzhak Rabin.  
+SELECT *
+FROM nobel_win
+    WHERE year > 1972
+        AND winner IN ('Menachem Begin', 'Yitzhak Rabin');
+
+#18 From the following table, write a SQL query to retrieve the details of the winners whose first names match with the string ‘Louis’. Return year, subject, winner, country, and category. 
+SELECT *
+    FROM nobel_win
+        WHERE winner LIKE 'Louis %';
+
+#19 From the following table, write a SQL query that combines the winners in Physics, 1970 and in Economics, 1971. Return year, subject, winner, country, and category. 
+SELECT * 
+    FROM nobel_win
+        WHERE (subject='Physics' AND year=1970) 
+UNION (
+SELECT * 
+    FROM nobel_win 
+        WHERE (subject ='Economics' AND YEAR=1971)
+);
+
+#20 From the following table, write a SQL query to find the Nobel Prize winners in 1970 excluding the subjects of Physiology and Economics. Return year, subject, winner, country, and category.
+SELECT * 
+    FROM nobel_win
+        WHERE year=1970
+            AND subject NOT IN('Physiology','Economics');
+
+#21 From the following table, write a SQL query to combine the winners in 'Physiology' before 1971 and winners in 'Peace' on or after 1974. Return year, subject, winner, country, and category. 
+SELECT * 
+    FROM nobel_win
+        WHERE (subject='Physiology' AND year<1971)
+UNION(
+SELECT * 
+    FROM nobel_win
+        WHERE (subject='Peace' AND year>=1974)
+);
+
+#22 From the following table, write a SQL query to find the details of the Nobel Prize winner 'Johannes Georg Bednorz'. Return year, subject, winner, country, and category. 
+SELECT * 
+    FROM nobel_win
+        WHERE winner='Johannes Georg Bednorz';
+
+#23 From the following table, write a SQL query to find Nobel Prize winners for the subject that does not begin with the letter 'P'. Return year, subject, winner, country, and category. Order the result by year, descending and winner in ascending.  
+SELECT * 
+    FROM nobel_win
+        WHERE subject NOT LIKE 'P%'
+            ORDER BY year DESC, winner ASC;
+
+#24 From the following table, write a SQL query to find the details of 1970 Nobel Prize winners. Order the results by subject, ascending except for 'Chemistry' and ‘Economics’ which will come at the end of the result set. Return year, subject, winner, country, and category.
+SELECT *
+    FROM nobel_win
+WHERE year=1970
+ORDER BY
+    CASE 
+        WHEN subject IN ('Economics','Chemistry') THEN 1  
+        ELSE 0
+    END ASC,
+    subject,
+    winner ;
+        
+#-----------------------------------
+# ADD NEW TABLE
