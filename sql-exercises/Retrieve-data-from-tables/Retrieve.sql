@@ -226,3 +226,84 @@ ORDER BY
         
 #-----------------------------------
 # ADD NEW TABLE
+CREATE TABLE item_mast(
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    price float,
+    com INT
+);
+DESC item_mast;
+INSERT INTO item_mast(id, name, price, com)
+VALUES  (101, 'Mother Board', 3200.00, 15),
+        (102, 'Key Board', 450.00, 16),
+        (103, 'ZIP Drive', 250.00, 14),
+        (104, 'Speaker', 550.00, 16),
+        (105, 'Monitor', 5000.00, 11),
+        (106, 'DVD drive', 900.00, 12),
+        (107, 'CD drive', 800.00, 12),
+        (108, 'Printer', 2600.00, 13),
+        (109, 'Refill cartridge', 350.00, 13);
+SELECT * FROM item_mast;
+#----------------------------------------------
+
+#25 From the following table, write a SQL query to select a range of products whose price is in the range Rs.200 to Rs.600. Begin and end values are included. Return pro_id, pro_name, pro_price, and pro_com.
+SELECT * FROM item_mast
+    WHERE price BETWEEN 200 AND 600;
+
+#26 From the following table, write a SQL query to calculate the average price for a manufacturer code of 16. Return avg.   
+SELECT AVG(price) FROM item_mast
+    WHERE com=16;
+
+#27 From the following table, write a SQL query to display the pro_name as 'Item Name' and pro_priceas 'Price in Rs.'  
+SELECT name AS "Item Name", price AS "Price in Rs." 
+    FROM item_mast;
+
+#28 From the following table, write a SQL query to find the items whose prices are higher than or equal to $250. Order the result by product price in descending, then product name in ascending. Return pro_name and pro_price.  
+SELECT name, price 
+    FROM item_mast
+        WHERE price >=250
+            ORDER BY price desc, name;
+
+#29 From the following table, write a SQL query to calculate average price of the items for each company. Return average price and company code. 
+SELECT AVG(price), com
+    FROM item_mast
+GROUP BY com;
+
+#30 From the following table, write a SQL query to find the cheapest item(s). Return pro_name and, pro_price.
+SELECT name, price
+    FROM item_mast
+    WHERE price = (SELECT MIN(price) FROM item_mast);
+
+#-----------------------
+# ADD NEW TABLE
+CREATE TABLE emp_details(
+    id INT,
+    fname VARCHAR(20),
+    lname VARCHAR(20),
+    dept INT
+);
+
+INSERT INTO emp_details(id, fname, lname, dept) 
+VALUES  (127323, 'Michale', 'Robbin', 57),
+        (52689, 'Carlos', 'Snares', 63),
+        (843795, 'Enric', 'Dosio', 57),
+        (328717, 'John', 'Snares', 63),
+        (444527, 'Joseph', 'Dosni', 47),
+        (659831, 'Zanifer', 'Emily', 47),
+        (847674, 'Kuleswar', 'Sitaraman', 57),
+        (748681, 'Henrey', 'Gabriel', 47),
+        (631548, 'Alan', 'Snappy', 27);
+SELECT * FROM emp_details;
+#-----------------------------------------------
+
+#31 From the following table, write a SQL query to find the unique last name of all employees. Return emp_lname.  
+SELECT DISTINCT lname
+FROM emp_details;
+
+#32 From the following table, write a SQL query to find the details of employees whose last name is 'Snares'. Return emp_idno, emp_fname, emp_lname, and emp_dept.  
+SELECT * FROM emp_details
+    WHERE lname='Snares';
+
+#33 From the following table, write a SQL query to retrieve the details of the employees who work in the department 57. Return emp_idno, emp_fname, emp_lname and emp_dept.
+SELECT * FROM emp_details
+   WHERE dept=57;
