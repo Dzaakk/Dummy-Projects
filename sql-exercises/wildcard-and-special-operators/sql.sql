@@ -46,5 +46,66 @@ WHERE cust_name LIKE '%N';
 SELECT * FROM salesman 
 WHERE  name LIKE 'N__L%';
 
+#------------------------
+# ADD NEW TABLE
+CREATE TABLE test(
+    txt VARCHAR(100)
+);
+SELECT * FROM test;
+INSERT INTO test(txt) 
+VALUES  ('A001/DJ-402\44_/100/2015'),
+        ('A001_\DJ-402\44_/100/2015'),
+        ('A001_DJ-402-2014-2015'),
+        ('A002_DJ-401-2014-2015'),
+        ('A001/DJ_401'),
+        ('A001/DJ_402\44'),
+        ('A001/DJ_402\44\2015'),
+        ('A001/DJ-402%45\2015/200'),
+        ('A001/DJ_402\45\2015%100'),
+        ('A001/DJ_402%45\2015/300'),
+        ('A001/DJ-402\44');
+#-----------------------------------
 
+#12 From the following table, write a SQL query to find those rows where col1 contains the escape character underscore ( _ ). Return col1
+SELECT * FROM test
+WHERE txt LIKE '%/_%' ESCAPE '/';
 
+#13 From the following table, write a SQL query to identify those rows where col1 does not contain the escape character underscore ( _ ). Return col1
+SELECT * FROM test
+WHERE txt  NOT LIKE '%/_%' ESCAPE '_';
+
+#14 From the following table, write a SQL query to find rows in which col1 contains the forward slash character ( / ). Return col1
+SELECT * FROM test
+WHERE txt LIKE '%//%' ESCAPE '/';
+
+#15 From the following table, write a SQL query to identify those rows where col1 does not contain the forward slash character ( / ). Return col1
+SELECT * FROM test
+WHERE txt NOT LIKE '%//%' ESCAPE '/';
+
+#16 From the following table, write a SQL query to find those rows where col1 contains the string ( _/ ). Return col1
+SELECT * FROM test
+WHERE txt LIKE '%/_//%' ESCAPE '/';
+
+#17 From the following table, write a SQL query to find those rows where col1 does not contain the string ( _/ ). Return col1
+SELECT * FROM test
+WHERE txt NOT LIKE '%/_//%' ESCAPE '/';
+
+#18 From the following table, write a SQL query to find those rows where col1 contains the character percent ( % ). Return col1
+SELECT * FROM test
+WHERE txt LIKE '%/%%' ESCAPE '/';
+
+#19 From the following table, write a SQL query to find those rows where col1 does not contain the character percent ( % ). Return col1
+SELECT * FROM test
+WHERE txt NOT LIKE '%/%%' ESCAPE '/';
+
+#20 From the following table, write a SQL query to find all those customers who does not have any grade. Return customer_id, cust_name, city, grade, salesman_id.
+SELECT * FROM customer
+WHERE grade IS NULL;
+
+#21 From the following table, write a SQL query to locate all customers with a grade value. Return customer_id, cust_name,city, grade, salesman_id. 
+SELECT * FROM customer
+WHERE grade IS NOT NULL;
+
+#22 From the following table, write a SQL query to locate the employees whose last name begins with the letter 'D'. Return emp_idno, emp_fname, emp_lname and emp_dept.
+SELECT * FROM emp_details
+WHERE lname LIKE 'D%';
