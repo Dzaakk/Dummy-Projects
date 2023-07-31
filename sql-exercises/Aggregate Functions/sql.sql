@@ -41,3 +41,14 @@ GROUP BY customer_id;
 SELECT customer_id, ord_date, MAX(purch_amt) 
 FROM orders
 GROUP BY customer_id, ord_date;
+
+#11 From the following table, write a SQL query to determine the highest purchase amount made by each salesperson on '2012-08-17'. Return salesperson ID, purchase amount
+SELECT salesman_id, MAX(purch_amt) 
+FROM orders
+WHERE ord_date = '2012-08-17'
+GROUP BY salesman_id;
+
+#12 From the following table, write a SQL query to find the highest order (purchase) amount by each customer on a particular order date. Filter the result by highest order (purchase) amount above 2000.00. Return customer id, order date and maximum purchase amount. 
+SELECT customer_id, ord_date, MAX(purch_amt) 
+FROM orders
+GROUP BY customer_id, MAX(purch_amt) >2000;
