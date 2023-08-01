@@ -99,3 +99,44 @@ WHERE city IS NOT NULL;
 SELECT ord_date, salesman_id, COUNT(*)
 FROM orders
 GROUP BY ord_date, salesman_id;
+
+#21 From the following table, write a SQL query to calculate the average product price. Return average product price. 
+SELECT AVG(price) 
+FROM item_mast;
+
+#22 From the following table, write a SQL query to count the number of products whose price are higher than or equal to 350. Return number of products.
+SELECT  COUNT(*)
+FROM item_mast
+WHERE price >= 350;
+
+#23 From the following table, write a SQL query to compute the average price for unique companies. Return average price and company id. 
+SELECT AVG(price) AS "Average Price",
+    com AS "Company ID"
+FROM item_mast
+GROUP BY com;
+
+#------------------------
+# ADD NEW TABLE
+CREATE TABLE emp_department(
+    code INT,
+    name VARCHAR(20),
+    allotment INT
+);
+
+INSERT INTO emp_department(code, name, allotment) 
+VALUES  (57, 'IT', 65000),
+        (63, 'Finance', 15000),
+        (47, 'HR', 240000),
+        (27, 'RD', 55000),
+        (89, 'QC', 75000);
+
+#-------------------
+
+#24 From the following table, write a SQL query to compute the sum of the allotment amount of all departments. Return sum of the allotment amount.
+SELECT SUM(allotment) 
+FROM emp_department;
+
+#25 From the following table, write a SQL query to count the number of employees in each department. Return department code and number of employees. 
+SELECT dept, COUNT(*) AS 'Number of Employee' 
+FROM emp_details
+GROUP BY dept;
